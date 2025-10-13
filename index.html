@@ -2,139 +2,295 @@
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <title>Κουίζ 15 Ερωτήσεων - Ακρόπολη Φαρσάλων</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Κουίζ: Ακρόπολη Φαρσάλων - 15 Ερωτήσεις</title>
+    <!-- Φόρτωση Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Προσαρμοσμένο στυλ */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        .quiz-container {
+            max-width: 600px;
+            min-height: 450px; /* Για να μην "πηδάει" η κάρτα */
+        }
+        .option-label {
+            transition: background-color 0.2s, transform 0.1s;
+            cursor: pointer;
+            user-select: none;
+        }
+        .option-label:hover {
+            background-color: #e5e7eb;
+            transform: translateY(-1px);
+        }
+        /* Στυλ για όταν επιλέγεται μια απάντηση */
+        input[type="radio"]:checked + .option-label {
+            background-color: #d1fae5; /* Light green for selected */
+            border: 2px solid #10b981; /* Emerald border */
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
+        }
+        /* Κρύβουμε τα πραγματικά radio buttons */
+        input[type="radio"] {
+            display: none;
+        }
+        /* Στυλ για την κάρτα αποτελεσμάτων */
+        #result-card {
+            background: linear-gradient(135deg, #e0f2f1, #ccfbf1);
+            border: 4px solid #0d9488;
+        }
+    </style>
 </head>
-<body>
+<body class="p-4 sm:p-8 flex justify-center items-center min-h-screen">
 
-    <h1>Κουίζ: Ακρόπολη των Φαρσάλων (15 Ερωτήσεις)</h1>
-    <p>Επιλέξτε τη σωστή απάντηση για κάθε ερώτηση με βάση τα στοιχεία της παρουσίασής σας.</p>
+    <div id="quiz-container" class="quiz-container w-full bg-white shadow-2xl rounded-xl p-6 md:p-10 flex flex-col justify-between">
 
-    <form>
-        <ol>
-            <li>
-                <p>Σε ποιο ύψωμα βρίσκεται η Ακρόπολη των Φαρσάλων, τοποθετημένη στο νοτιότερο και υψηλότερο σημείο της σύγχρονης πόλης;</p>
-                <input type="radio" id="q1a" name="q1" value="a"><label for="q1a">Λόφος Αγίας Παρασκευής</label><br>
-                <input type="radio" id="q1b" name="q1" value="b"><label for="q1b"><strong>Λόφος Προφήτη Ηλία</strong></label><br>
-                <input type="radio" id="q1c" name="q1" value="c"><label for="q1c">Όρος Όθρυς</label><br>
-                <input type="radio" id="q1d" name="q1" value="d"><label for="q1d">Λόφος Μυκηναϊκού Τύμβου</label>
-            </li>
+        <h1 id="quiz-title" class="text-2xl sm:text-3xl font-extrabold text-indigo-700 mb-2 text-center border-b pb-3">Κουίζ: Ακρόπολη Φαρσάλων</h1>
 
-            <li>
-                <p>Ποιος ήταν ο πρωταρχικός σκοπός κατασκευής της Ακρόπολης των Φαρσάλων κατά την αρχαιότητα;</p>
-                <input type="radio" id="q2a" name="q2" value="a"><label for="q2a">Θρησκευτικό και τελετουργικό κέντρο</label><br>
-                <input type="radio" id="q2b" name="q2" value="b"><label for="q2b">Πολιτικό κέντρο και βουλευτήριο</label><br>
-                <input type="radio" id="q2c" name="q2" value="c"><label for="q2c"><strong>Στρατιωτικοί και αμυντικοί σκοποί</strong></label><br>
-                <input type="radio" id="q2d" name="q2" value="d"><label for="q2d">Αποκλειστικά κατοικία για την άρχουσα τάξη</label>
-            </li>
+        <!-- Πλαίσιο Ερωτήσεων -->
+        <div id="question-area" class="flex-grow flex flex-col justify-center">
+            
+            <p id="question-counter" class="text-sm font-medium text-gray-500 mb-4 text-right"></p>
+            
+            <!-- Το card της ερώτησης -->
+            <div id="current-question-card" class="bg-gray-50 p-6 rounded-lg shadow-inner border border-gray-200 min-h-[150px] flex flex-col justify-center">
+                <p id="question-text" class="text-xl font-semibold text-gray-800 mb-6"></p>
+                <div id="options-container" class="space-y-3">
+                    <!-- Οι επιλογές θα εισαχθούν εδώ -->
+                </div>
+            </div>
 
-            <li>
-                <p>Με ποια μυθική ομηρική τοποθεσία ταυτίζεται η περιοχή των Φαρσάλων σύμφωνα με την παράδοση;</p>
-                <input type="radio" id="q3a" name="q3" value="a"><label for="q3a">Μαγνησία, η πατρίδα των Κενταύρων</label><br>
-                <input type="radio" id="q3b" name="q3" value="b"><label for="q3b"><strong>Φθία, η πατρίδα του Αχιλλέα</strong></label><br>
-                <input type="radio" id="q3c" name="q3" value="c"><label for="q3c">Τροία, το πεδίο της μάχης</label><br>
-                <input type="radio" id="q3d" name="q3" value="d"><label for="q3d">Ιθάκη, η πατρίδα του Οδυσσέα</label>
-            </li>
+            <!-- Κάρτα Αποτελεσμάτων (Κρυφή αρχικά) -->
+            <div id="result-card" class="hidden text-center p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Αποτελέσματα Κουίζ</h2>
+                <p id="final-score" class="text-5xl font-black text-teal-700 mb-6"></p>
+                <p id="final-message" class="text-lg text-gray-600 font-medium"></p>
+                <button onclick="window.location.reload()" class="mt-6 px-6 py-3 bg-indigo-500 text-white font-bold rounded-lg shadow-md hover:bg-indigo-600 transition duration-300">
+                    Ξανά από την αρχή
+                </button>
+            </div>
 
-            <li>
-                <p>Σε ποια περίοδο ανήκει η σημαντική ενίσχυση της ακρόπολης με πύργους στα μέσα του 4ου αι. π.Χ. (γύρω στα 350 π.Χ.);</p>
-                <input type="radio" id="q4a" name="q4" value="a"><label for="q4a">Κλασική περίοδος</label><br>
-                <input type="radio" id="q4b" name="q4" value="b"><label for="q4b">Αρχαϊκή περίοδος</label><br>
-                <input type="radio" id="q4c" name="q4" value="c"><label for="q4c"><strong>Ελληνιστική περίοδος</strong></label><br>
-                <input type="radio" id="q4d" name="q4" value="d"><label for="q4d">Ρωμαϊκή περίοδος</label>
-            </li>
+        </div>
 
-            <li>
-                <p>Ποια τεχνική τοιχοδομίας χρησιμοποιήθηκε κυρίως στα αρχαία τείχη της Ακρόπολης, με τη χρήση μεγάλων ογκόλιθων;</p>
-                <input type="radio" id="q5a" name="q5" value="a"><label for="q5a">Ιπποδάμειο σύστημα</label><br>
-                <input type="radio" id="q5b" name="q5" value="b"><label for="q5b"><strong>Πολυγωνική και ισοδομική τεχνική</strong></label><br>
-                <input type="radio" id="q5c" name="q5" value="c"><label for="q5c">Opus Caementicium (Ρωμαϊκό σκυρόδεμα)</label><br>
-                <input type="radio" id="q5d" name="q5" value="d"><label for="q5d">Ξυλοδομή με πλίνθους</label>
-            </li>
+        <!-- Πλαίσιο Κουμπιών Πλοήγησης -->
+        <div id="navigation-area" class="mt-8 pt-4 border-t flex justify-end">
+            <button id="next-button" class="px-8 py-3 bg-indigo-600 text-white font-bold text-lg rounded-xl shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed">
+                Επόμενη Ερώτηση &rarr;
+            </button>
+        </div>
 
-            <li>
-                <p>Ποιος Ρωμαίος στρατηγός ήταν ο **νικητής** της Μάχης των Φαρσάλων το 48 π.Χ.;</p>
-                <input type="radio" id="q6a" name="q6" value="a"><label for="q6a">Πομπήιος</label><br>
-                <input type="radio" id="q6b" name="q6" value="b"><label for="q6b">Μάρκος Αντώνιος</label><br>
-                <input type="radio" id="q6c" name="q6" value="c"><label for="q6c">Οκταβιανός Αύγουστος</label><br>
-                <input type="radio" id="q6d" name="q6" value="d"><label for="q6d"><strong>Ιούλιος Καίσαρας</strong></label>
-            </li>
+    </div>
 
-            <li>
-                <p>Τι είδους κατασκευή σχετική με την ύδρευση έχει βρεθεί εντός του αρχαιολογικού χώρου της Ακρόπολης;</p>
-                <input type="radio" id="q7a" name="q7" value="a"><label for="q7a">Αρχαίο υδραγωγείο Ρωμαϊκών χρόνων</label><br>
-                <input type="radio" id="q7b" name="q7" value="b"><label for="q7b"><strong>Δεξαμενή σε σχήμα φιάλης σκαμμένη στον βράχο</strong></label><br>
-                <input type="radio" id="q7c" name="q7" value="c"><label for="q7c">Πηγή με μαρμάρινη κρήνη</label><br>
-                <input type="radio" id="q7d" name="q7" value="d"><label for="q7d">Υπόγειο κανάλι ποταμού</label>
-            </li>
+    <script>
+        // Αντικείμενο με τις ερωτήσεις, τις επιλογές και τη σωστή απάντηση (index 0, 1, 2, 3)
+        const quizData = [
+            {
+                question: "Σε ποιο ύψωμα βρίσκεται η Ακρόπολη των Φαρσάλων, τοποθετημένη στο νοτιότερο και υψηλότερο σημείο της σύγχρονης πόλης;",
+                options: ["Λόφος Αγίας Παρασκευής", "Λόφος Προφήτη Ηλία", "Όρος Όθρυς", "Λόφος Μυκηναϊκού Τύμβου"],
+                correctAnswerIndex: 1
+            },
+            {
+                question: "Ποιος ήταν ο πρωταρχικός σκοπός κατασκευής της Ακρόπολης των Φαρσάλων κατά την αρχαιότητα;",
+                options: ["Θρησκευτικό και τελετουργικό κέντρο", "Πολιτικό κέντρο και βουλευτήριο", "Στρατιωτικοί και αμυντικοί σκοποί", "Αποκλειστικά κατοικία για την άρχουσα τάξη"],
+                correctAnswerIndex: 2
+            },
+            {
+                question: "Με ποια μυθική ομηρική τοποθεσία ταυτίζεται η περιοχή των Φαρσάλων σύμφωνα με την παράδοση;",
+                options: ["Μαγνησία, η πατρίδα των Κενταύρων", "Φθία, η πατρίδα του Αχιλλέα", "Τροία, το πεδίο της μάχης", "Ιθάκη, η πατρίδα του Οδυσσέα"],
+                correctAnswerIndex: 1
+            },
+            {
+                question: "Σε ποια περίοδο ανήκει η σημαντική ενίσχυση της ακρόπολης με πύργους στα μέσα του 4ου αι. π.Χ. (γύρω στα 350 π.Χ.);",
+                options: ["Κλασική περίοδος", "Αρχαϊκή περίοδος", "Ελληνιστική περίοδος", "Ρωμαϊκή περίοδος"],
+                correctAnswerIndex: 2
+            },
+            {
+                question: "Ποια τεχνική τοιχοδομίας χρησιμοποιήθηκε κυρίως στα αρχαία τείχη της Ακρόπολης, με τη χρήση μεγάλων ογκόλιθων;",
+                options: ["Ιπποδάμειο σύστημα", "Πολυγωνική και ισοδομική τεχνική", "Opus Caementicium (Ρωμαϊκό σκυρόδεμα)", "Ξυλοδομή με πλίνθους"],
+                correctAnswerIndex: 1
+            },
+            {
+                question: "Ποιος Ρωμαίος στρατηγός ήταν ο νικητής της Μάχης των Φαρσάλων το 48 π.Χ.;",
+                options: ["Πομπήιος", "Μάρκος Αντώνιος", "Οκταβιανός Αύγουστος", "Ιούλιος Καίσαρας"],
+                correctAnswerIndex: 3
+            },
+            {
+                question: "Τι είδους κατασκευή σχετική με την ύδρευση έχει βρεθεί εντός του αρχαιολογικού χώρου της Ακρόπολης;",
+                options: ["Αρχαίο υδραγωγείο Ρωμαϊκών χρόνων", "Δεξαμενή σε σχήμα φιάλης σκαμμένη στον βράχο", "Πηγή με μαρμάρινη κρήνη", "Υπόγειο κανάλι ποταμού"],
+                correctAnswerIndex: 1
+            },
+            {
+                question: "Σε τι μετατράπηκε η Ακρόπολη των Φαρσάλων κατά τη διάρκεια των Βυζαντινών χρόνων, λόγω των μετασκευών και προσθηκών;",
+                options: ["Θρησκευτικό μοναστήρι", "Κάστρο-Παρατηρητήριο", "Καστροπολιτεία", "Απλή οχύρωση χωρίς οικισμό"],
+                correctAnswerIndex: 2
+            },
+            {
+                question: "Τι μήκος φτάνει περίπου η Ακρόπολη των Φαρσάλων, με κατεύθυνση ανατολικά-δυτικά;",
+                options: ["Περίπου 100 μέτρα", "Περίπου 500-550 μέτρα", "Περίπου 1 χιλιόμετρο", "Περίπου 2 χιλιόμετρα"],
+                correctAnswerIndex: 1
+            },
+            {
+                question: "Ποιο σημαντικό εύρημα βρέθηκε σε θολωτό τάφο της αρχαϊκής περιόδου στα Φάρσαλα, καταδεικνύοντας την ακμή της περιοχής;",
+                options: ["Χάλκινος θώρακας Μακεδονικού τύπου", "Καλυκωτός, μελανόμορφος κρατήρας του Εξηκία", "Μαρμάρινη επιγραφή του Φιλίππου Β'", "Ειδώλιο της θεάς Αρτέμιδος"],
+                correctAnswerIndex: 1
+            },
+            {
+                question: "Τι συμβολίζει η **πολυγωνική** τεχνική τοιχοδομίας στα αρχαία τείχη;",
+                options: ["Τη χρήση κονιάματος για τη σύνδεση των λίθων.", "Τη χρήση λίθων με ακανόνιστα (πολλά) σχήματα που εφαρμόζουν τέλεια.", "Τη χρήση τούβλων (πλίνθων) σε οριζόντιες σειρές.", "Την ίση διάσταση όλων των λίθων σε κάθε σειρά."],
+                correctAnswerIndex: 1
+            },
+            {
+                question: "Ποιο είναι το κύριο υλικό που χρησιμοποίησαν οι Βυζαντινοί για τις προσθήκες και επισκευές στην Ακρόπολη;",
+                options: ["Αποκλειστικά πλίνθοι (τούβλα)", "Νέος, καλά πελεκημένος ασβεστόλιθος.", "Δευτερογενές υλικό (σπόλια) από παλαιότερα κτίσματα.", "Σίδηρος και μολύβι."],
+                correctAnswerIndex: 2
+            },
+            {
+                question: "Ποια πολιτική των Φαρσάλων οδήγησε σε ενίσχυση της πόλης στους πρώιμους Ελληνιστικούς χρόνους;",
+                options: ["Η φιλοαθηναϊκή της στάση.", "Η φιλομακεδονική της πολιτική.", "Η ουδέτερη στάση της στους πολέμους.", "Η εμπορική της συμμαχία με τη Ρόδο."],
+                correctAnswerIndex: 1
+            },
+            {
+                question: "Το μέγιστο πλάτος της επίμηκους Ακρόπολης των Φαρσάλων είναι πολύ μικρό, φτάνοντας περίπου τα:",
+                options: ["150 μέτρα", "1 χιλιόμετρο", "30 μέτρα", "60 μέτρα"],
+                correctAnswerIndex: 3
+            },
+            {
+                question: "Ποια είναι η βασική αρχή της **ισοδομικής** τεχνικής τοιχοδομίας;",
+                options: ["Οι λίθοι έχουν το ίδιο ύψος σε κάθε οριζόντια σειρά.", "Οι λίθοι είναι ακατέργαστοι (αργολιθοδομή).", "Χρησιμοποιείται μόνο για εσωτερικούς τοίχους.", "Δεν υπάρχουν κάθετες αρμοί (συνδέσεις)."],
+                correctAnswerIndex: 0
+            }
+        ];
 
-            <li>
-                <p>Σε τι μετατράπηκε η Ακρόπολη των Φαρσάλων κατά τη διάρκεια των Βυζαντινών χρόνων, λόγω των μετασκευών και προσθηκών;</p>
-                <input type="radio" id="q8a" name="q8" value="a"><label for="q8a">Θρησκευτικό μοναστήρι</label><br>
-                <input type="radio" id="q8b" name="q8" value="b"><label for="q8b">Κάστρο-Παρατηρητήριο</label><br>
-                <input type="radio" id="q8c" name="q8" value="c"><label for="q8c"><strong>Καστροπολιτεία</strong></label><br>
-                <input type="radio" id="q8d" name="q8" value="d"><label for="q8d">Απλή οχύρωση χωρίς οικισμό</label>
-            </li>
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const userAnswers = new Array(quizData.length).fill(null); // Αποθηκεύει την επιλογή του χρήστη
 
-            <li>
-                <p>Τι μήκος φτάνει περίπου η Ακρόπολη των Φαρσάλων, με κατεύθυνση ανατολικά-δυτικά;</p>
-                <input type="radio" id="q9a" name="q9" value="a"><label for="q9a">Περίπου 100 μέτρα</label><br>
-                <input type="radio" id="q9b" name="q9" value="b"><label for="q9b"><strong>Περίπου 500-550 μέτρα</strong></label><br>
-                <input type="radio" id="q9c" name="q9" value="c"><label for="q9c">Περίπου 1 χιλιόμετρο</label><br>
-                <input type="radio" id="q9d" name="q9" value="d"><label for="q9d">Περίπου 2 χιλιόμετρα</label>
-            </li>
+        // DOM Elements
+        const questionCounter = document.getElementById('question-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const nextButton = document.getElementById('next-button');
+        const resultCard = document.getElementById('result-card');
+        const questionArea = document.getElementById('question-area');
+        const currentQuestionCard = document.getElementById('current-question-card');
+        const navigationArea = document.getElementById('navigation-area');
 
-            <li>
-                <p>Ποιο σημαντικό εύρημα βρέθηκε σε θολωτό τάφο της αρχαϊκής περιόδου στα Φάρσαλα, καταδεικνύοντας την ακμή της περιοχής;</p>
-                <input type="radio" id="q10a" name="q10" value="a"><label for="q10a">Χάλκινος θώρακας Μακεδονικού τύπου</label><br>
-                <input type="radio" id="q10b" name="q10" value="b"><label for="q10b"><strong>Καλυκωτός, μελανόμορφος κρατήρας του Εξηκία</strong></label><br>
-                <input type="radio" id="q10c" name="q10" value="c"><label for="q10c">Μαρμάρινη επιγραφή του Φιλίππου Β'</label><br>
-                <input type="radio" id="q10d" name="q10" value="d"><label for="q10d">Ειδώλιο της θεάς Αρτέμιδος</label>
-            </li>
 
-            <li>
-                <p>Τι συμβολίζει η **πολυγωνική** τεχνική τοιχοδομίας στα αρχαία τείχη;</p>
-                <input type="radio" id="q11a" name="q11" value="a"><label for="q11a">Τη χρήση κονιάματος για τη σύνδεση των λίθων.</label><br>
-                <input type="radio" id="q11b" name="q11" value="b"><label for="q11b"><strong>Τη χρήση λίθων με ακανόνιστα (πολλά) σχήματα που εφαρμόζουν τέλεια.</strong></label><br>
-                <input type="radio" id="q11c" name="q11" value="c"><label for="q11c">Τη χρήση τούβλων (πλίνθων) σε οριζόντιες σειρές.</label><br>
-                <input type="radio" id="q11d" name="q11" value="d"><label for="q11d">Την ίση διάσταση όλων των λίθων σε κάθε σειρά.</label>
-            </li>
+        // Συνάρτηση για την εμφάνιση της τρέχουσας ερώτησης
+        function displayQuestion() {
+            if (currentQuestionIndex >= quizData.length) {
+                showResults();
+                return;
+            }
 
-            <li>
-                <p>Ποιο είναι το κύριο υλικό που χρησιμοποίησαν οι Βυζαντινοί για τις προσθήκες και επισκευές στην Ακρόπολη;</p>
-                <input type="radio" id="q12a" name="q12" value="a"><label for="q12a">Αποκλειστικά πλίνθοι (τούβλα)</label><br>
-                <input type="radio" id="q12b" name="q12" value="b"><label for="q12b">Νέος, καλά πελεκημένος ασβεστόλιθος.</label><br>
-                <input type="radio" id="q12c" name="q12" value="c"><label for="q12c"><strong>Δευτερογενές υλικό (σπόλια) από παλαιότερα κτίσματα.</strong></label><br>
-                <input type="radio" id="q12d" name="q12" value="d"><label for="q12d">Σίδηρος και μολύβι.</label>
-            </li>
+            const currentQ = quizData[currentQuestionIndex];
+            
+            // Ενημέρωση αριθμού ερώτησης
+            questionCounter.textContent = `Ερώτηση ${currentQuestionIndex + 1} από ${quizData.length}`;
 
-            <li>
-                <p>Ποια πολιτική των Φαρσάλων οδήγησε σε ενίσχυση της πόλης στους πρώιμους Ελληνιστικούς χρόνους;</p>
-                <input type="radio" id="q13a" name="q13" value="a"><label for="q13a">Η φιλοαθηναϊκή της στάση.</label><br>
-                <input type="radio" id="q13b" name="q13" value="b"><label for="q13b"><strong>Η φιλομακεδονική της πολιτική.</strong></label><br>
-                <input type="radio" id="q13c" name="q13" value="c"><label for="q13c">Η ουδέτερη στάση της στους πολέμους.</label><br>
-                <input type="radio" id="q13d" name="q13" value="d"><label for="q13d">Η εμπορική της συμμαχία με τη Ρόδο.</label>
-            </li>
+            // Ενημέρωση κειμένου ερώτησης
+            questionText.textContent = currentQ.question;
 
-            <li>
-                <p>Το μέγιστο πλάτος της επίμηκους Ακρόπολης των Φαρσάλων είναι πολύ μικρό, φτάνοντας περίπου τα:</p>
-                <input type="radio" id="q14a" name="q14" value="a"><label for="q14a">150 μέτρα</label><br>
-                <input type="radio" id="q14b" name="q14" value="b"><label for="q14b">1 χιλιόμετρο</label><br>
-                <input type="radio" id="q14c" name="q14" value="c"><label for="q14c">30 μέτρα</label><br>
-                <input type="radio" id="q14d" name="q14" value="d"><label for="q14d"><strong>60 μέτρα</strong></label>
-            </li>
+            // Ενημέρωση επιλογών
+            optionsContainer.innerHTML = '';
+            currentQ.options.forEach((optionText, oIndex) => {
+                const id = `q${currentQuestionIndex}o${oIndex}`;
+                
+                // Δημιουργία Radio Input
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.id = id;
+                input.name = `question-${currentQuestionIndex}`;
+                input.value = oIndex;
+                input.checked = userAnswers[currentQuestionIndex] === oIndex; // Διατήρηση επιλογής
+                
+                // Προσθήκη listener για αποθήκευση της απάντησης
+                input.addEventListener('change', () => {
+                    userAnswers[currentQuestionIndex] = oIndex;
+                    nextButton.disabled = false; // Ενεργοποίηση του κουμπιού
+                });
 
-            <li>
-                <p>Ποια είναι η βασική αρχή της **ισοδομικής** τεχνικής τοιχοδομίας;</p>
-                <input type="radio" id="q15a" name="q15" value="a"><label for="q15a"><strong>Οι λίθοι έχουν το ίδιο ύψος σε κάθε οριζόντια σειρά.</strong></label><br>
-                <input type="radio" id="q15b" name="q15" value="b"><label for="q15b">Οι λίθοι είναι ακατέργαστοι (αργολιθοδομή).</label><br>
-                <input type="radio" id="q15c" name="q15" value="c"><label for="q15c">Χρησιμοποιείται μόνο για εσωτερικούς τοίχους.</label><br>
-                <input type="radio" id="q15d" name="q15" value="d"><label for="q15d">Δεν υπάρχουν κάθετες αρμοί (συνδέσεις).</label>
-            </li>
+                // Δημιουργία Label
+                const label = document.createElement('label');
+                label.htmlFor = id;
+                label.className = 'option-label block p-3 rounded-lg text-gray-700 bg-white shadow-sm border';
+                label.textContent = optionText;
 
-        </ol>
+                // Δημιουργία container για input και label
+                const div = document.createElement('div');
+                div.appendChild(input);
+                div.appendChild(label);
+                optionsContainer.appendChild(div);
+            });
 
-        <button type="submit">Υποβολή Απαντήσεων</button>
-    </form>
+            // Ενεργοποίηση/Απενεργοποίηση κουμπιού Επόμενη
+            if (userAnswers[currentQuestionIndex] === null) {
+                nextButton.disabled = true;
+            } else {
+                nextButton.disabled = false;
+            }
+            
+            // Αλλαγή κειμένου κουμπιού για την τελευταία ερώτηση
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextButton.textContent = "Ολοκλήρωση Κουίζ & Αποτελέσματα";
+            } else {
+                 nextButton.textContent = "Επόμενη Ερώτηση →";
+            }
+        }
 
+        // Συνάρτηση για την πρόοδο στην επόμενη ερώτηση
+        function goToNextQuestion() {
+            // Έλεγχος αν έχει δοθεί απάντηση πριν προχωρήσουμε
+            if (userAnswers[currentQuestionIndex] === null && currentQuestionIndex < quizData.length) {
+                // Εμφάνιση ενός απλού μηνύματος αν δεν επιλεγεί κάτι
+                alert('Παρακαλώ επιλέξτε μια απάντηση για να συνεχίσετε.');
+                return;
+            }
+            
+            currentQuestionIndex++;
+            displayQuestion();
+        }
+
+        // Συνάρτηση για την εμφάνιση των τελικών αποτελεσμάτων
+        function showResults() {
+            // Υπολογισμός σκορ
+            score = 0;
+            userAnswers.forEach((answerIndex, qIndex) => {
+                if (answerIndex === quizData[qIndex].correctAnswerIndex) {
+                    score++;
+                }
+            });
+
+            const total = quizData.length;
+            const percentage = (score / total) * 100;
+            
+            let message;
+            if (percentage === 100) {
+                message = "Φοβερά! Είστε ειδικός στην ιστορία της Ακρόπολης των Φαρσάλων!";
+            } else if (percentage >= 70) {
+                message = "Πολύ καλά! Εντυπωσιακή γνώση του θέματος. Μπορείτε να βελτιώσετε λίγο ακόμα!";
+            } else if (percentage >= 50) {
+                message = "Καλό αποτέλεσμα! Έχετε μια σταθερή βάση γνώσεων.";
+            } else {
+                message = "Χρειάζεται λίγη επιπλέον μελέτη. Συνεχίστε την προσπάθεια!";
+            }
+
+            // Εμφάνιση κάρτας αποτελεσμάτων και απόκρυψη ερωτήσεων/κουμπιού
+            currentQuestionCard.classList.add('hidden');
+            navigationArea.classList.add('hidden');
+            resultCard.classList.remove('hidden');
+
+            document.getElementById('final-score').textContent = `${score} / ${total}`;
+            document.getElementById('final-message').textContent = message;
+        }
+
+        // Event Listener για το κουμπί "Επόμενη Ερώτηση"
+        nextButton.addEventListener('click', goToNextQuestion);
+
+        // Εκκίνηση του κουίζ
+        document.addEventListener('DOMContentLoaded', displayQuestion);
+
+    </script>
 </body>
 </html>
