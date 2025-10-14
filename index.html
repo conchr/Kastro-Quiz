@@ -3,294 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Κουίζ: Ακρόπολη Φαρσάλων - 15 Ερωτήσεις</title>
+    <title>Κουίζ: Η Οχύρωση του Κάστρου Καλλιθέας</title>
     <!-- Φόρτωση Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Προσαρμοσμένο στυλ */
+        /* Ρύθμιση γραμματοσειράς Inter */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Light gray background */
+            background-color: #f7fafc; /* Λευκό-γκρι φόντο */
         }
-        .quiz-container {
-            max-width: 600px;
-            min-height: 450px; /* Για να μην "πηδάει" η κάρτα */
-        }
-        .option-label {
-            transition: background-color 0.2s, transform 0.1s;
+        /* Προσαρμογή κουμπιών επιλογών */
+        .option-button {
+            transition: all 0.2s ease-in-out;
             cursor: pointer;
-            user-select: none;
         }
-        .option-label:hover {
-            background-color: #e5e7eb;
-            transform: translateY(-1px);
+        .option-button:hover:not(.disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
         }
-        /* Στυλ για όταν επιλέγεται μια απάντηση */
-        input[type="radio"]:checked + .option-label {
-            background-color: #d1fae5; /* Light green for selected */
-            border: 2px solid #10b981; /* Emerald border */
-            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
+        .correct {
+            background-color: #b9fbc0 !important; /* Ανοιχτό πράσινο */
+            border-color: #047857 !important;
+            color: #047857 !important;
         }
-        /* Κρύβουμε τα πραγματικά radio buttons */
-        input[type="radio"] {
-            display: none;
-        }
-        /* Στυλ για την κάρτα αποτελεσμάτων */
-        #result-card {
-            background: linear-gradient(135deg, #e0f2f1, #ccfbf1);
-            border: 4px solid #0d9488;
+        .incorrect {
+            background-color: #ffc9c9 !important; /* Ανοιχτό κόκκινο */
+            border-color: #b91c1c !important;
+            color: #b91c1c !important;
         }
     </style>
 </head>
-<body class="p-4 sm:p-8 flex justify-center items-center min-h-screen">
+<body class="p-4 sm:p-8 flex items-center justify-center min-h-screen">
 
-    <div id="quiz-container" class="quiz-container w-full bg-white shadow-2xl rounded-xl p-6 md:p-10 flex flex-col justify-between">
+    <div id="quiz-container" class="w-full max-w-xl bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-100">
 
-        <h1 id="quiz-title" class="text-2xl sm:text-3xl font-extrabold text-indigo-700 mb-2 text-center border-b pb-3">Κουίζ: Ακρόπολη Φαρσάλων</h1>
+        <!-- Τίτλος -->
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-800 mb-6 border-b-4 border-yellow-500 pb-2">
+            Κουίζ: Κάστρο Καλλιθέας
+        </h1>
 
-        <!-- Πλαίσιο Ερωτήσεων -->
-        <div id="question-area" class="flex-grow flex flex-col justify-center">
-            
-            <p id="question-counter" class="text-sm font-medium text-gray-500 mb-4 text-right"></p>
-            
-            <!-- Το card της ερώτησης -->
-            <div id="current-question-card" class="bg-gray-50 p-6 rounded-lg shadow-inner border border-gray-200 min-h-[150px] flex flex-col justify-center">
-                <p id="question-text" class="text-xl font-semibold text-gray-800 mb-6"></p>
-                <div id="options-container" class="space-y-3">
-                    <!-- Οι επιλογές θα εισαχθούν εδώ -->
-                </div>
-            </div>
-
-            <!-- Κάρτα Αποτελεσμάτων (Κρυφή αρχικά) -->
-            <div id="result-card" class="hidden text-center p-8 rounded-xl shadow-lg">
-                <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Αποτελέσματα Κουίζ</h2>
-                <p id="final-score" class="text-5xl font-black text-teal-700 mb-6"></p>
-                <p id="final-message" class="text-lg text-gray-600 font-medium"></p>
-                <button onclick="window.location.reload()" class="mt-6 px-6 py-3 bg-indigo-500 text-white font-bold rounded-lg shadow-md hover:bg-indigo-600 transition duration-300">
-                    Ξανά από την αρχή
-                </button>
-            </div>
-
+        <!-- Πίνακας Βαθμολογίας και Αρίθμησης Ερώτησης -->
+        <div class="flex justify-between items-center mb-6 text-lg font-semibold text-gray-600">
+            <span id="question-number">Ερώτηση 1 / 15</span>
+            <span id="current-score" class="text-green-700">Σκορ: 0</span>
         </div>
 
-        <!-- Πλαίσιο Κουμπιών Πλοήγησης -->
-        <div id="navigation-area" class="mt-8 pt-4 border-t flex justify-end">
-            <button id="next-button" class="px-8 py-3 bg-indigo-600 text-white font-bold text-lg rounded-xl shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed">
+        <!-- Περιοχή Ερώτησης -->
+        <div class="bg-blue-50 p-5 rounded-xl mb-6 shadow-md border-l-4 border-blue-500">
+            <p id="question-text" class="text-xl font-bold text-gray-800">
+                Φόρτωση ερώτησης...
+            </p>
+        </div>
+
+        <!-- Περιοχή Επιλογών -->
+        <div id="options-container" class="space-y-4 mb-8">
+            <!-- Εδώ θα μπουν δυναμικά τα κουμπιά των επιλογών -->
+        </div>
+
+        <!-- Περιοχή Ανατροφοδότησης και Επόμενης Ερώτησης -->
+        <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+            <div id="feedback-message" class="text-lg font-medium text-gray-700"></div>
+            <button id="next-button"
+                    class="bg-yellow-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:bg-yellow-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled>
                 Επόμενη Ερώτηση &rarr;
             </button>
         </div>
+    </div>
 
+    <!-- Περιοχή Τελικών Αποτελεσμάτων (Κρυφή αρχικά) -->
+    <div id="results-container" class="hidden w-full max-w-xl bg-white p-8 rounded-2xl shadow-2xl border border-gray-100 text-center">
+        <h2 class="text-4xl font-extrabold text-gray-800 mb-4">Το Κουίζ Ολοκληρώθηκε!</h2>
+        <p class="text-2xl mb-6 text-green-700 font-bold">Τελικό Σκορ:</p>
+        <p id="final-score" class="text-6xl font-black text-yellow-500 mb-8"></p>
+        <p id="final-message" class="text-xl text-gray-700 mb-8"></p>
+        <button onclick="restartQuiz()"
+                class="bg-blue-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-300">
+            Παίξε Ξανά
+        </button>
     </div>
 
     <script>
-        // Αντικείμενο με τις ερωτήσεις, τις επιλογές και τη σωστή απάντηση (index 0, 1, 2, 3)
-        const quizData = [
+        // Δεδομένα Κουίζ με 15 ερωτήσεις από την παρουσίαση.
+        const quizQuestions = [
             {
-                question: "Σε ποιο ύψωμα βρίσκεται η Ακρόπολη των Φαρσάλων, τοποθετημένη στο νοτιότερο και υψηλότερο σημείο της σύγχρονης πόλης;",
-                options: ["Λόφος Αγίας Παρασκευής", "Λόφος Προφήτη Ηλία", "Όρος Όθρυς", "Λόφος Μυκηναϊκού Τύμβου"],
-                correctAnswerIndex: 1
+                question: "Με ποια αρχαία πόλη πιστεύεται ότι ταυτίζεται η θέση «Κάστρο» Καλλιθέας;",
+                options: ["Φάρσαλος", "Πεύμα", "Σκοτούσσα", "Ερέτρια"],
+                answer: "Πεύμα"
             },
             {
-                question: "Ποιος ήταν ο πρωταρχικός σκοπός κατασκευής της Ακρόπολης των Φαρσάλων κατά την αρχαιότητα;",
-                options: ["Θρησκευτικό και τελετουργικό κέντρο", "Πολιτικό κέντρο και βουλευτήριο", "Στρατιωτικοί και αμυντικοί σκοποί", "Αποκλειστικά κατοικία για την άρχουσα τάξη"],
-                correctAnswerIndex: 2
+                question: "Ποια ήταν η κύρια περίοδος κατοίκησης της πόλης;",
+                options: ["10ος - 7ος αι. π.Χ.", "4ος - 2ος αι. π.Χ.", "1ος - 3ος αι. μ.Χ.", "Βυζαντινή Περίοδος"],
+                answer: "4ος - 2ος αι. π.Χ."
             },
             {
-                question: "Με ποια μυθική ομηρική τοποθεσία ταυτίζεται η περιοχή των Φαρσάλων σύμφωνα με την παράδοση;",
-                options: ["Μαγνησία, η πατρίδα των Κενταύρων", "Φθία, η πατρίδα του Αχιλλέα", "Τροία, το πεδίο της μάχης", "Ιθάκη, η πατρίδα του Οδυσσέα"],
-                correctAnswerIndex: 1
+                question: "Ποια είναι η συνολική έκταση της πόλης εντός των τειχών;",
+                options: ["150 στρέμματα", "340 στρέμματα", "500 στρέμματα", "80 στρέμματα"],
+                answer: "340 στρέμματα"
             },
             {
-                question: "Σε ποια περίοδο ανήκει η σημαντική ενίσχυση της ακρόπολης με πύργους στα μέσα του 4ου αι. π.Χ. (γύρω στα 350 π.Χ.);",
-                options: ["Κλασική περίοδος", "Αρχαϊκή περίοδος", "Ελληνιστική περίοδος", "Ρωμαϊκή περίοδος"],
-                correctAnswerIndex: 2
+                question: "Σε ποια πολιτική οργάνωση ανήκε η πόλη κατά την Ελληνιστική Εποχή;",
+                options: ["Συμμαχία των Δελφών", "Αμφικτιονία", "Αχαϊκή Συμπολιτεία", "Κοινό της Αχαΐας Φθιώτιδος"],
+                answer: "Κοινό της Αχαΐας Φθιώτιδος"
             },
             {
-                question: "Ποια τεχνική τοιχοδομίας χρησιμοποιήθηκε κυρίως στα αρχαία τείχη της Ακρόπολης, με τη χρήση μεγάλων ογκόλιθων;",
-                options: ["Ιπποδάμειο σύστημα", "Πολυγωνική και ισοδομική τεχνική", "Opus Caementicium (Ρωμαϊκό σκυρόδεμα)", "Ξυλοδομή με πλίνθους"],
-                correctAnswerIndex: 1
+                question: "Ποιο είναι το πιο εντυπωσιακό χαρακτηριστικό του αρχαιολογικού χώρου;",
+                options: ["Ο θολωτός τάφος", "Η πλήρης διατήρηση της οχύρωσης", "Το μεγάλο θέατρο", "Η ρωμαϊκή έπαυλη"],
+                answer: "Η πλήρης διατήρηση της οχύρωσης"
             },
             {
-                question: "Ποιος Ρωμαίος στρατηγός ήταν ο νικητής της Μάχης των Φαρσάλων το 48 π.Χ.;",
-                options: ["Πομπήιος", "Μάρκος Αντώνιος", "Οκταβιανός Αύγουστος", "Ιούλιος Καίσαρας"],
-                correctAnswerIndex: 3
+                question: "Ποια δομή χρησίμευε ως το «τελευταίο καταφύγιο» σε περίπτωση πολιορκίας;",
+                options: ["Η Αγορά", "Η Ακρόπολη", "Το Τείχος", "Ο Κεντρικός Ναός"],
+                answer: "Η Ακρόπολη"
             },
             {
-                question: "Τι είδους κατασκευή σχετική με την ύδρευση έχει βρεθεί εντός του αρχαιολογικού χώρου της Ακρόπολης;",
-                options: ["Αρχαίο υδραγωγείο Ρωμαϊκών χρόνων", "Δεξαμενή σε σχήμα φιάλης σκαμμένη στον βράχο", "Πηγή με μαρμάρινη κρήνη", "Υπόγειο κανάλι ποταμού"],
-                correctAnswerIndex: 1
+                question: "Ποιες τεχνικές δόμησης χρησιμοποιήθηκαν πιθανότατα για τα τείχη;",
+                options: ["Ωμοπλινθική", "Πολυγωνική ή ισοδομική", "Εμπλεκτό", "Πλινθοδομή"],
+                answer: "Πολυγωνική ή ισοδομική"
             },
             {
-                question: "Σε τι μετατράπηκε η Ακρόπολη των Φαρσάλων κατά τη διάρκεια των Βυζαντινών χρόνων, λόγω των μετασκευών και προσθηκών;",
-                options: ["Θρησκευτικό μοναστήρι", "Κάστρο-Παρατηρητήριο", "Καστροπολιτεία", "Απλή οχύρωση χωρίς οικισμό"],
-                correctAnswerIndex: 2
+                question: "Ποια δομικά στοιχεία ενίσχυαν την άμυνα του τείχους;",
+                options: ["Αποχετεύσεις", "Δημόσια κτίρια", "Πύργοι", "Βωμοί"],
+                answer: "Πύργοι"
             },
             {
-                question: "Τι μήκος φτάνει περίπου η Ακρόπολη των Φαρσάλων, με κατεύθυνση ανατολικά-δυτικά;",
-                options: ["Περίπου 100 μέτρα", "Περίπου 500-550 μέτρα", "Περίπου 1 χιλιόμετρο", "Περίπου 2 χιλιόμετρα"],
-                correctAnswerIndex: 1
+                question: "Ποια κατεύθυνση είχαν οι κύριες είσοδοι που εντοπίζονται στην Ακρόπολη;",
+                options: ["Βόρεια και Νότια", "Ανατολική και Δυτική", "Βόρεια και Ανατολική", "Νότια και Δυτική"],
+                answer: "Ανατολική και Δυτική"
             },
             {
-                question: "Ποιο σημαντικό εύρημα βρέθηκε σε θολωτό τάφο της αρχαϊκής περιόδου στα Φάρσαλα, καταδεικνύοντας την ακμή της περιοχής;",
-                options: ["Χάλκινος θώρακας Μακεδονικού τύπου", "Καλυκωτός, μελανόμορφος κρατήρας του Εξηκία", "Μαρμάρινη επιγραφή του Φιλίππου Β'", "Ειδώλιο της θεάς Αρτέμιδος"],
-                correctAnswerIndex: 1
+                question: "Ποιο κτίριο, μεγάλη ιδιωτική οικία, έδωσε σημαντικές πληροφορίες για την καθημερινή ζωή;",
+                options: ["Κτίριο 5", "Κτίριο 10", "Στοά", "Ναός"],
+                answer: "Κτίριο 10"
             },
             {
-                question: "Τι συμβολίζει η **πολυγωνική** τεχνική τοιχοδομίας στα αρχαία τείχη;",
-                options: ["Τη χρήση κονιάματος για τη σύνδεση των λίθων.", "Τη χρήση λίθων με ακανόνιστα (πολλά) σχήματα που εφαρμόζουν τέλεια.", "Τη χρήση τούβλων (πλίνθων) σε οριζόντιες σειρές.", "Την ίση διάσταση όλων των λίθων σε κάθε σειρά."],
-                correctAnswerIndex: 1
+                question: "Σε ποια ευρύτερη ιστορική περίοδο ανήκει η μεγαλύτερη ακμή της πόλης;",
+                options: ["Αρχαϊκή Εποχή", "Κλασική Εποχή", "Ελληνιστική Εποχή", "Ρωμαϊκή Εποχή"],
+                answer: "Ελληνιστική Εποχή"
             },
             {
-                question: "Ποιο είναι το κύριο υλικό που χρησιμοποίησαν οι Βυζαντινοί για τις προσθήκες και επισκευές στην Ακρόπολη;",
-                options: ["Αποκλειστικά πλίνθοι (τούβλα)", "Νέος, καλά πελεκημένος ασβεστόλιθος.", "Δευτερογενές υλικό (σπόλια) από παλαιότερα κτίσματα.", "Σίδηρος και μολύβι."],
-                correctAnswerIndex: 2
+                question: "Τι διακρίνεται μέσα στα τείχη, εκτός από την Ακρόπολη;",
+                options: ["Μόνο τάφοι", "Μόνο ιδιωτικές κατοικίες", "Αγορά, Ναοί, Δημόσια Κτίρια", "Ρωμαϊκά Λουτρά"],
+                answer: "Αγορά, Ναοί, Δημόσια Κτίρια"
             },
             {
-                question: "Ποια πολιτική των Φαρσάλων οδήγησε σε ενίσχυση της πόλης στους πρώιμους Ελληνιστικούς χρόνους;",
-                options: ["Η φιλοαθηναϊκή της στάση.", "Η φιλομακεδονική της πολιτική.", "Η ουδέτερη στάση της στους πολέμους.", "Η εμπορική της συμμαχία με τη Ρόδο."],
-                correctAnswerIndex: 1
+                question: "Ποιος ήταν ο ρόλος των τειχών πέρα από την άμυνα, σύμφωνα με την παρουσίαση;",
+                options: ["Χώρος λατρείας", "Σύμβολο ισχύος και οργάνωσης", "Σημείο συνάντησης", "Πλατεία"],
+                answer: "Σύμβολο ισχύος και οργάνωσης"
+            },
+             {
+                question: "Ποιο υλικό χρησιμοποιήθηκε ως πρώτη ύλη για την κατασκευή των τειχών;",
+                options: ["Κεραμικά τούβλα", "Ογκώδεις πέτρες", "Ξύλινοι πάσσαλοι", "Άμμος"],
+                answer: "Ογκώδεις πέτρες"
             },
             {
-                question: "Το μέγιστο πλάτος της επίμηκους Ακρόπολης των Φαρσάλων είναι πολύ μικρό, φτάνοντας περίπου τα:",
-                options: ["150 μέτρα", "1 χιλιόμετρο", "30 μέτρα", "60 μέτρα"],
-                correctAnswerIndex: 3
-            },
-            {
-                question: "Ποια είναι η βασική αρχή της **ισοδομικής** τεχνικής τοιχοδομίας;",
-                options: ["Οι λίθοι έχουν το ίδιο ύψος σε κάθε οριζόντια σειρά.", "Οι λίθοι είναι ακατέργαστοι (αργολιθοδομή).", "Χρησιμοποιείται μόνο για εσωτερικούς τοίχους.", "Δεν υπάρχουν κάθετες αρμοί (συνδέσεις)."],
-                correctAnswerIndex: 0
+                question: "Σε ποια μεγάλη έκταση διασώζεται η οχύρωση του Κάστρου Καλλιθέας;",
+                options: ["Σε τμήματα μόνο", "Σε όλη την έκταση της πόλης", "Στην Ακρόπολη μόνο", "Στο μισό της πόλης"],
+                answer: "Σε όλη την έκταση της πόλης"
             }
         ];
 
         let currentQuestionIndex = 0;
         let score = 0;
-        const userAnswers = new Array(quizData.length).fill(null); // Αποθηκεύει την επιλογή του χρήστη
+        let answered = false;
 
-        // DOM Elements
-        const questionCounter = document.getElementById('question-counter');
-        const questionText = document.getElementById('question-text');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results-container');
+        const questionNumberEl = document.getElementById('question-number');
+        const currentScoreEl = document.getElementById('current-score');
+        const questionTextEl = document.getElementById('question-text');
         const optionsContainer = document.getElementById('options-container');
         const nextButton = document.getElementById('next-button');
-        const resultCard = document.getElementById('result-card');
-        const questionArea = document.getElementById('question-area');
-        const currentQuestionCard = document.getElementById('current-question-card');
-        const navigationArea = document.getElementById('navigation-area');
+        const feedbackMessageEl = document.getElementById('feedback-message');
+        const finalScoreEl = document.getElementById('final-score');
+        const finalMessageEl = document.getElementById('final-message');
 
-
-        // Συνάρτηση για την εμφάνιση της τρέχουσας ερώτησης
-        function displayQuestion() {
-            if (currentQuestionIndex >= quizData.length) {
-                showResults();
-                return;
+        // Συνάρτηση για την ανάμειξη των επιλογών
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
+            return array;
+        }
 
-            const currentQ = quizData[currentQuestionIndex];
+        // Φορτώνει την τρέχουσα ερώτηση
+        function loadQuestion() {
+            answered = false;
+            nextButton.disabled = true;
+            feedbackMessageEl.textContent = '';
+            optionsContainer.innerHTML = ''; // Καθαρισμός προηγούμενων επιλογών
+
+            const currentQ = quizQuestions[currentQuestionIndex];
             
-            // Ενημέρωση αριθμού ερώτησης
-            questionCounter.textContent = `Ερώτηση ${currentQuestionIndex + 1} από ${quizData.length}`;
+            questionNumberEl.textContent = `Ερώτηση ${currentQuestionIndex + 1} / ${quizQuestions.length}`;
+            questionTextEl.textContent = currentQ.question;
+            currentScoreEl.textContent = `Σκορ: ${score}`;
 
-            // Ενημέρωση κειμένου ερώτησης
-            questionText.textContent = currentQ.question;
+            // Ανάμειξη των επιλογών πριν την εμφάνιση
+            const shuffledOptions = shuffleArray([...currentQ.options]);
 
-            // Ενημέρωση επιλογών
-            optionsContainer.innerHTML = '';
-            currentQ.options.forEach((optionText, oIndex) => {
-                const id = `q${currentQuestionIndex}o${oIndex}`;
-                
-                // Δημιουργία Radio Input
-                const input = document.createElement('input');
-                input.type = 'radio';
-                input.id = id;
-                input.name = `question-${currentQuestionIndex}`;
-                input.value = oIndex;
-                input.checked = userAnswers[currentQuestionIndex] === oIndex; // Διατήρηση επιλογής
-                
-                // Προσθήκη listener για αποθήκευση της απάντησης
-                input.addEventListener('change', () => {
-                    userAnswers[currentQuestionIndex] = oIndex;
-                    nextButton.disabled = false; // Ενεργοποίηση του κουμπιού
-                });
-
-                // Δημιουργία Label
-                const label = document.createElement('label');
-                label.htmlFor = id;
-                label.className = 'option-label block p-3 rounded-lg text-gray-700 bg-white shadow-sm border';
-                label.textContent = optionText;
-
-                // Δημιουργία container για input και label
-                const div = document.createElement('div');
-                div.appendChild(input);
-                div.appendChild(label);
-                optionsContainer.appendChild(div);
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add(
+                    'option-button', 
+                    'w-full', 'py-3', 'px-4', 
+                    'bg-gray-50', 'text-gray-700', 'font-medium', 
+                    'rounded-lg', 'border-2', 'border-gray-200',
+                    'text-left', 'shadow-sm', 'hover:bg-gray-100'
+                );
+                button.addEventListener('click', () => selectAnswer(button, option, currentQ.answer));
+                optionsContainer.appendChild(button);
             });
-
-            // Ενεργοποίηση/Απενεργοποίηση κουμπιού Επόμενη
-            if (userAnswers[currentQuestionIndex] === null) {
-                nextButton.disabled = true;
-            } else {
-                nextButton.disabled = false;
-            }
-            
-            // Αλλαγή κειμένου κουμπιού για την τελευταία ερώτηση
-            if (currentQuestionIndex === quizData.length - 1) {
-                nextButton.textContent = "Ολοκλήρωση Κουίζ & Αποτελέσματα";
-            } else {
-                 nextButton.textContent = "Επόμενη Ερώτηση →";
-            }
         }
 
-        // Συνάρτηση για την πρόοδο στην επόμενη ερώτηση
-        function goToNextQuestion() {
-            // Έλεγχος αν έχει δοθεί απάντηση πριν προχωρήσουμε
-            if (userAnswers[currentQuestionIndex] === null && currentQuestionIndex < quizData.length) {
-                // Εμφάνιση ενός απλού μηνύματος αν δεν επιλεγεί κάτι
-                alert('Παρακαλώ επιλέξτε μια απάντηση για να συνεχίσετε.');
-                return;
-            }
-            
-            currentQuestionIndex++;
-            displayQuestion();
-        }
+        // Διαχειρίζεται την επιλογή απάντησης
+        function selectAnswer(selectedButton, selectedAnswer, correctAnswer) {
+            if (answered) return; // Αποτροπή πολλαπλών απαντήσεων
 
-        // Συνάρτηση για την εμφάνιση των τελικών αποτελεσμάτων
-        function showResults() {
-            // Υπολογισμός σκορ
-            score = 0;
-            userAnswers.forEach((answerIndex, qIndex) => {
-                if (answerIndex === quizData[qIndex].correctAnswerIndex) {
-                    score++;
+            answered = true;
+            const optionButtons = document.querySelectorAll('.option-button');
+            
+            // Απενεργοποίηση όλων των κουμπιών
+            optionButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('disabled');
+                
+                // Επισήμανση σωστής/λάθος απάντησης
+                if (btn.textContent === correctAnswer) {
+                    btn.classList.add('correct');
+                    btn.classList.remove('hover:bg-gray-100');
+                } else if (btn === selectedButton) {
+                    btn.classList.add('incorrect');
+                    btn.classList.remove('hover:bg-gray-100');
                 }
             });
 
-            const total = quizData.length;
-            const percentage = (score / total) * 100;
-            
-            let message;
-            if (percentage === 100) {
-                message = "Φοβερά! Είστε ειδικός στην ιστορία της Ακρόπολης των Φαρσάλων!";
-            } else if (percentage >= 70) {
-                message = "Πολύ καλά! Εντυπωσιακή γνώση του θέματος. Μπορείτε να βελτιώσετε λίγο ακόμα!";
-            } else if (percentage >= 50) {
-                message = "Καλό αποτέλεσμα! Έχετε μια σταθερή βάση γνώσεων.";
+            // Έλεγχος απάντησης
+            if (selectedAnswer === correctAnswer) {
+                score++;
+                feedbackMessageEl.textContent = '✅ Σωστή Απάντηση! Συγχαρητήρια!';
+                feedbackMessageEl.classList.remove('text-red-600');
+                feedbackMessageEl.classList.add('text-green-600');
             } else {
-                message = "Χρειάζεται λίγη επιπλέον μελέτη. Συνεχίστε την προσπάθεια!";
+                feedbackMessageEl.textContent = '❌ Λάθος Απάντηση. Η σωστή ήταν: ' + correctAnswer;
+                feedbackMessageEl.classList.remove('text-green-600');
+                feedbackMessageEl.classList.add('text-red-600');
             }
 
-            // Εμφάνιση κάρτας αποτελεσμάτων και απόκρυψη ερωτήσεων/κουμπιού
-            currentQuestionCard.classList.add('hidden');
-            navigationArea.classList.add('hidden');
-            resultCard.classList.remove('hidden');
-
-            document.getElementById('final-score').textContent = `${score} / ${total}`;
-            document.getElementById('final-message').textContent = message;
+            currentScoreEl.textContent = `Σκορ: ${score}`;
+            nextButton.disabled = false;
         }
 
-        // Event Listener για το κουμπί "Επόμενη Ερώτηση"
-        nextButton.addEventListener('click', goToNextQuestion);
+        // Διαχειρίζεται την προώθηση στην επόμενη ερώτηση
+        nextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        });
 
-        // Εκκίνηση του κουίζ
-        document.addEventListener('DOMContentLoaded', displayQuestion);
+        // Εμφανίζει τα τελικά αποτελέσματα
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
 
+            const percentage = (score / quizQuestions.length) * 100;
+            finalScoreEl.textContent = `${score} / ${quizQuestions.length}`;
+
+            let message = '';
+            if (percentage >= 80) {
+                message = 'Εξαιρετική επίδοση! Έχετε πλήρη γνώση της οχύρωσης του Κάστρου Καλλιθέας.';
+                finalMessageEl.classList.add('text-green-700');
+            } else if (percentage >= 50) {
+                message = 'Πολύ καλά! Χρειάζεται λίγη ακόμη μελέτη στα στοιχεία της παρουσίασης.';
+                finalMessageEl.classList.add('text-yellow-700');
+            } else {
+                message = 'Καλό ξεκίνημα! Ξαναπαίξτε για να ανακαλύψετε τα μυστικά της αρχαίας πόλης.';
+                finalMessageEl.classList.add('text-red-700');
+            }
+
+            finalMessageEl.textContent = message;
+        }
+
+        // Επανεκκινεί το κουίζ
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            resultsContainer.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        // Έναρξη του παιχνιδιού
+        window.onload = loadQuestion;
     </script>
 </body>
 </html>
