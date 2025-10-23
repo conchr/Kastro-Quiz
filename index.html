@@ -10,7 +10,8 @@
         /* Ρύθμιση γραμματοσειράς Inter */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7fafc; /* Λευκό-γκρι φόντο */
+            background-color: #8b7355; /* Καφέ φόντο που μοιάζει με πάπυρο */
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239C8C7C' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
         /* Προσαρμογή κουμπιών επιλογών */
         .option-button {
@@ -31,48 +32,135 @@
             border-color: #b91c1c !important;
             color: #b91c1c !important;
         }
+        /* Φόντο πάπυρου για το κύριο περιεχόμενο */
+        .parchment-bg {
+            background-color: #f5e9d3;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d9c7a7' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        /* Εφέ fade-in */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Προσαρμογή για μεγάλες οθόνες */
+        @media (min-width: 1920px) {
+            .quiz-container-large {
+                max-width: 50vw;
+            }
+            .text-4k {
+                font-size: 3rem;
+            }
+            .text-4k-sm {
+                font-size: 2rem;
+            }
+        }
+        /* Προσαρμογή για smartphones σε portrait */
+        @media (max-width: 480px) and (orientation: portrait) {
+            .quiz-container-mobile {
+                padding: 1rem;
+            }
+            .text-mobile {
+                font-size: 1.125rem;
+            }
+            .text-mobile-sm {
+                font-size: 0.875rem;
+            }
+        }
+        /* Προσαρμογή για smartphones σε landscape */
+        @media (max-height: 480px) and (orientation: landscape) {
+            .quiz-container-landscape {
+                padding: 0.5rem;
+                max-height: 95vh;
+                overflow-y: auto;
+            }
+            .text-landscape {
+                font-size: 1rem;
+            }
+            .text-landscape-sm {
+                font-size: 0.75rem;
+            }
+        }
+        /* Προσαρμογή για Smart TVs */
+        @media (min-width: 1920px) and (min-height: 1080px) {
+            .quiz-container-tv {
+                max-width: 60vw;
+                padding: 3rem;
+            }
+            .text-tv {
+                font-size: 2.5rem;
+            }
+            .text-tv-sm {
+                font-size: 1.75rem;
+            }
+            .button-tv {
+                padding: 1.5rem 3rem;
+                font-size: 1.75rem;
+            }
+        }
+        /* Εμφάνιση οδηγιών για πλοήγηση με βέλη */
+        .key-hint {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #374151;
+            margin: 0 0.25rem;
+        }
     </style>
 </head>
-<body class="p-2 sm:p-4 md:p-8 flex items-center justify-center min-h-screen">
+<body class="p-2 sm:p-4 md:p-8 lg:p-12 xl:p-16 flex items-center justify-center min-h-screen">
 
-    <div id="quiz-container" class="w-full max-w-xl bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl border border-gray-100">
+    <div id="quiz-container" class="w-full quiz-container-large quiz-container-tv parchment-bg p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl border border-amber-200 fade-in">
 
         <!-- Τίτλος -->
-        <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-4 sm:mb-6 border-b-4 border-yellow-500 pb-2">
+        <h1 class="text-2xl sm:text-3xl md:text-4k-sm lg:text-4xl xl:text-4k font-extrabold text-center text-gray-800 mb-4 sm:mb-6 border-b-4 border-yellow-500 pb-2 text-tv">
             Κουίζ: Κάστρο Καλλιθέας
         </h1>
 
+        <!-- Οδηγίες για πλοήγηση με βέλη -->
+        <div class="text-center mb-4 text-sm text-gray-600">
+            Χρησιμοποιήστε τα <span class="key-hint">←</span> και <span class="key-hint">→</span> για πλοήγηση
+        </div>
+
         <!-- Πίνακας Βαθμολογίας και Αρίθμησης Ερώτησης -->
-        <div class="flex justify-between items-center mb-4 sm:mb-6 text-base sm:text-lg font-semibold text-gray-600">
+        <div class="flex justify-between items-center mb-4 sm:mb-6 text-base sm:text-lg md:text-xl font-semibold text-gray-600 text-tv-sm">
             <span id="question-number">Ερώτηση 1 / 15</span>
             <span id="current-score" class="text-green-700">Σκορ: 0</span>
         </div>
 
         <!-- Περιοχή Ερώτησης -->
-        <div class="bg-blue-50 p-4 sm:p-5 rounded-lg sm:rounded-xl mb-4 sm:mb-6 shadow-md border-l-4 border-blue-500">
-            <p id="question-text" class="text-lg sm:text-xl font-bold text-gray-800">
+        <div class="bg-blue-50 p-4 sm:p-5 md:p-6 rounded-lg sm:rounded-xl mb-4 sm:mb-6 shadow-md border-l-4 border-blue-500">
+            <p id="question-text" class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 text-tv">
                 Φόρτωση ερώτησης...
             </p>
         </div>
 
         <!-- Περιοχή Επιλογών -->
-        <div id="options-container" class="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+        <div id="options-container" class="space-y-3 sm:space-y-4 md:space-y-5 mb-6 sm:mb-8 md:mb-10">
             <!-- Εδώ θα μπουν δυναμικά τα κουμπιά των επιλογών -->
         </div>
 
         <!-- Περιοχή Ανατροφοδότησης -->
-        <div id="feedback-message" class="text-base sm:text-lg font-medium text-gray-700 mb-4 sm:mb-6"></div>
+        <div id="feedback-message" class="text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-gray-700 mb-4 sm:mb-6 md:mb-8 text-tv-sm"></div>
 
         <!-- Περιοχή Κουμπιών Πλοήγησης -->
         <div class="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 pt-4 border-t border-gray-200">
-            <div class="flex space-x-2 sm:space-x-4 w-full sm:w-auto">
+            <div class="flex space-x-2 sm:space-x-4 md:space-x-6 w-full sm:w-auto">
                 <button id="previous-button"
-                        class="flex-1 sm:flex-none bg-gray-500 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl shadow hover:bg-gray-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+                        class="flex-1 sm:flex-none bg-gray-500 text-white font-bold py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 rounded-lg sm:rounded-xl shadow hover:bg-gray-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base md:text-lg button-tv"
                         disabled>
                     &larr; Προηγούμενη
                 </button>
                 <button id="next-button"
-                        class="flex-1 sm:flex-none bg-yellow-500 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl shadow-lg hover:bg-yellow-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+                        class="flex-1 sm:flex-none bg-yellow-500 text-white font-bold py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 rounded-lg sm:rounded-xl shadow-lg hover:bg-yellow-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base md:text-lg button-tv"
                         disabled>
                     Επόμενη &rarr;
                 </button>
@@ -80,27 +168,27 @@
         </div>
         
         <!-- Κουμπί Επιστροφής στην Κεντρική Σελίδα -->
-        <div class="mt-4 sm:mt-6 w-full">
+        <div class="mt-4 sm:mt-6 md:mt-8 w-full">
             <a href="https://conchr.github.io/Farsala-Center-Page/" 
-               class="block w-full bg-purple-600 text-white font-bold py-3 px-4 rounded-lg sm:rounded-xl shadow-lg hover:bg-purple-700 transition-all duration-300 text-center text-sm sm:text-base">
+               class="block w-full bg-purple-600 text-white font-bold py-3 px-4 rounded-lg sm:rounded-xl shadow-lg hover:bg-purple-700 transition-all duration-300 text-center text-sm sm:text-base md:text-lg button-tv">
                 Επιστροφή στην Κεντρική Σελίδα
             </a>
         </div>
     </div>
 
     <!-- Περιοχή Τελικών Αποτελεσμάτων (Κρυφή αρχικά) -->
-    <div id="results-container" class="hidden w-full max-w-xl bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl border border-gray-100 text-center">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">Το Κουίζ Ολοκληρώθηκε!</h2>
-        <p class="text-xl sm:text-2xl mb-4 sm:mb-6 text-green-700 font-bold">Τελικό Σκορ:</p>
-        <p id="final-score" class="text-4xl sm:text-5xl md:text-6xl font-black text-yellow-500 mb-6 sm:mb-8"></p>
-        <p id="final-message" class="text-lg sm:text-xl text-gray-700 mb-6 sm:mb-8"></p>
-        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+    <div id="results-container" class="hidden w-full quiz-container-large quiz-container-tv parchment-bg p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl border border-amber-200 text-center fade-in">
+        <h2 class="text-2xl sm:text-3xl md:text-4k-sm lg:text-4xl xl:text-4k font-extrabold text-gray-800 mb-4 text-tv">Το Κουίζ Ολοκληρώθηκε!</h2>
+        <p class="text-xl sm:text-2xl md:text-3xl mb-4 sm:mb-6 text-green-700 font-bold text-tv-sm">Τελικό Σκορ:</p>
+        <p id="final-score" class="text-4xl sm:text-5xl md:text-6k lg:text-6xl xl:text-7xl font-black text-yellow-500 mb-6 sm:mb-8 md:mb-10 text-tv"></p>
+        <p id="final-message" class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700 mb-6 sm:mb-8 md:mb-10 text-tv-sm"></p>
+        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 md:space-x-6">
             <button onclick="restartQuiz()"
-                    class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg sm:rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-300 text-sm sm:text-base">
+                    class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg sm:rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-300 text-sm sm:text-base md:text-lg button-tv">
                 Παίξε Ξανά
             </button>
             <a href="https://conchr.github.io/Farsala-Center-Page/" 
-               class="bg-purple-600 text-white font-bold py-3 px-6 rounded-lg sm:rounded-xl shadow-lg hover:bg-purple-700 transition-all duration-300 text-center text-sm sm:text-base">
+               class="bg-purple-600 text-white font-bold py-3 px-6 rounded-lg sm:rounded-xl shadow-lg hover:bg-purple-700 transition-all duration-300 text-center text-sm sm:text-base md:text-lg button-tv">
                 Επιστροφή στην Κεντρική Σελίδα
             </a>
         </div>
@@ -240,7 +328,7 @@
                     'bg-gray-50', 'text-gray-700', 'font-medium', 
                     'rounded-lg', 'border-2', 'border-gray-200',
                     'text-left', 'shadow-sm', 'hover:bg-gray-100',
-                    'text-sm', 'sm:text-base'
+                    'text-sm', 'sm:text-base', 'md:text-lg', 'text-tv-sm'
                 );
                 button.addEventListener('click', () => selectAnswer(button, option, currentQ.answer));
                 optionsContainer.appendChild(button);
@@ -334,6 +422,27 @@
             quizContainer.classList.remove('hidden');
             loadQuestion();
         }
+
+        // Λειτουργία πλοήγησης με βέλη
+        document.addEventListener('keydown', function(event) {
+            // Αν εμφανίζονται τα αποτελέσματα, δεν κάνουμε τίποτα
+            if (!resultsContainer.classList.contains('hidden')) {
+                return;
+            }
+
+            switch(event.key) {
+                case 'ArrowLeft':
+                    if (!previousButton.disabled) {
+                        previousButton.click();
+                    }
+                    break;
+                case 'ArrowRight':
+                    if (!nextButton.disabled) {
+                        nextButton.click();
+                    }
+                    break;
+            }
+        });
 
         // Έναρξη του παιχνιδιού
         window.onload = loadQuestion;
