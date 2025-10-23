@@ -114,6 +114,18 @@
             color: #374151;
             margin: 0 0.25rem;
         }
+        /* Σταθερή τοποθέτηση κουμπιών πλοήγησης */
+        .navigation-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+        .nav-button {
+            position: static;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body class="p-2 sm:p-4 md:p-8 lg:p-12 xl:p-16 flex items-center justify-center min-h-screen">
@@ -152,19 +164,17 @@
         <div id="feedback-message" class="text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-gray-700 mb-4 sm:mb-6 md:mb-8 text-tv-sm"></div>
 
         <!-- Περιοχή Κουμπιών Πλοήγησης -->
-        <div class="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 pt-4 border-t border-gray-200">
-            <div class="flex space-x-2 sm:space-x-4 md:space-x-6 w-full sm:w-auto">
-                <button id="previous-button"
-                        class="flex-1 sm:flex-none bg-gray-500 text-white font-bold py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 rounded-lg sm:rounded-xl shadow hover:bg-gray-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base md:text-lg button-tv"
-                        disabled>
-                    &larr; Προηγούμενη
-                </button>
-                <button id="next-button"
-                        class="flex-1 sm:flex-none bg-yellow-500 text-white font-bold py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 rounded-lg sm:rounded-xl shadow-lg hover:bg-yellow-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base md:text-lg button-tv"
-                        disabled>
-                    Επόμενη &rarr;
-                </button>
-            </div>
+        <div class="navigation-container pt-4 border-t border-gray-200">
+            <button id="previous-button"
+                    class="nav-button bg-gray-500 text-white font-bold py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 rounded-lg sm:rounded-xl shadow hover:bg-gray-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base md:text-lg button-tv"
+                    disabled>
+                &larr; Προηγούμενη
+            </button>
+            <button id="next-button"
+                    class="nav-button bg-yellow-500 text-white font-bold py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 rounded-lg sm:rounded-xl shadow-lg hover:bg-yellow-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base md:text-lg button-tv"
+                    disabled>
+                Επόμενη &rarr;
+            </button>
         </div>
         
         <!-- Κουμπί Επιστροφής στην Κεντρική Σελίδα -->
@@ -182,7 +192,7 @@
         <p class="text-xl sm:text-2xl md:text-3xl mb-4 sm:mb-6 text-green-700 font-bold text-tv-sm">Τελικό Σκορ:</p>
         <p id="final-score" class="text-4xl sm:text-5xl md:text-6k lg:text-6xl xl:text-7xl font-black text-yellow-500 mb-6 sm:mb-8 md:mb-10 text-tv"></p>
         <p id="final-message" class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700 mb-6 sm:mb-8 md:mb-10 text-tv-sm"></p>
-        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 md:space-x-6">
+        <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 md:space-x-6">
             <button onclick="restartQuiz()"
                     class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg sm:rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-300 text-sm sm:text-base md:text-lg button-tv">
                 Παίξε Ξανά
